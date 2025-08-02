@@ -1,9 +1,10 @@
 import React from 'react'
+import './Stats.css';
 
 const Stats = () => {
   return (
-    <div>
-      <h1>Statystyki</h1>
+    <div className='stats-container'>
+      <h1 className='stats-title'>Statystyki</h1>
     </div>
   )
 }
