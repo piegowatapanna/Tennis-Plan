@@ -14,6 +14,7 @@ const Navbar = () => {
           <Link to="/notes">Notes</Link>
           <Link to="/statystyki">Statystyki</Link>
       </ul>
+      <div>Copyright &reg; 2025 Klaudia Frankowska</div>
     </nav>
   );
 };
