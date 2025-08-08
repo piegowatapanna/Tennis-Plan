@@ -1,54 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // 🔗 do powrotu na stronę główną
+import './Notes.css'; // style dla tej podstrony
 
-//Komponent notes - w tej wersji posiada tylko pole do wpisania tekstu i przycisk Dodaj notatke
-export default function Notes () {
-
-  //Stan komponentu do przechowywania wpisywanego tekstu w polu input
-  //noteText - aktualna wartość pola
-  //setNoteText - fukncja do zmiany tej wartości
+//  Komponent do dodawania i zapisywania notatek
+export default function Notes() {
+  //  Stan do przechowywania wpisywanego tekstu
   const [noteText, setNoteText] = useState('');
 
-  //Stan dla wszystkich notatek
-  const [allNotes, setAllNotes] = useState([]);
+  //  Stan na wszystkie notatki — wczytujemy je z localStorage przy pierwszym uruchomieniu
+  const [allNotes, setAllNotes] = useState(() => {
+    const savedNotes = localStorage.getItem('tp_notes');
+    return savedNotes ? JSON.parse(savedNotes) : [];
+  });
 
-  //Funkcja obsługująca dodanie nowej notatki 
+  // Zapisujemy notatki w localStorage za każdym razem, gdy się zmienią
+  useEffect(() => {
+    localStorage.setItem('tp_notes', JSON.stringify(allNotes));
+  }, [allNotes]);
+
+  //  Dodawanie nowej notatki
   const handleAddNote = (event) => {
-    event.preventDefault(); // blokuje domyślne przeładowanie strony
+    event.preventDefault(); // blokuje przeładowanie strony
+    const cleanText = noteText.trim();
 
-    const CleanText = noteText.trim(); //usuwamy spacje z początku/końca
-    if (!CleanText) return; // jeśli puste kończymy
+    if (!cleanText) return; // jeśli pusty tekst → nic nie rób
 
-    //dodaj nową notatkę na początek listy 
-    setAllNotes ((prevNotes) => [CleanText, ...prevNotes]);
+    // Dodajemy nową notatkę na początek listy
+    setAllNotes((prevNotes) => [
+      { id: crypto.randomUUID(), text: cleanText },
+      ...prevNotes
+    ]);
 
-    //wyczyść pole tekstowe 
-    setNoteText('');
+    setNoteText(''); // czyścimy pole po dodaniu
+  };
+
+  // Usuwanie notatki po ID
+  const handleRemoveNote = (idToRemove) => {
+    setAllNotes((prevNotes) => prevNotes.filter((note) => note.id !== idToRemove));
   };
 
   return (
-    <div>
-      {/*Tytuł podstrony */}
-      <h1>Notes</h1>
+    <div className="notes-container">
+      <h1 className="notes-title">Notes</h1>
 
-      {/* Formularz dodawania notatki, e.preventDefault - blokuje domyślnie przeładowania strony po wysłaniu formularza*/}
-      <form onSubmit={handleAddNote}>
-        {/* Pole tekstowe kontrolowane przez React (wartość pochodzi ze stanu noteText) */}
+      {/* Powrót na stronę główną */}
+      <Link to="/" className="back-button">← Powrót</Link>
+
+      {/*  Formularz dodawania nowej notatki */}
+      <form className="notes-form" onSubmit={handleAddNote}>
         <input
-        type="text"
-        placeholder='Wpisz notatkę...'
-        value={noteText} //Wartość pola jest zawsze równa stanowi noteText
-        onChange={(e) => setNoteText(e.target.value)} //Kada zmiana w polu aktualizuje stan
+          className="notes-input"
+          type="text"
+          placeholder="Wpisz notatkę..."
+          value={noteText}
+          onChange={(e) => setNoteText(e.target.value)}
         />
-         {/* Przycisk do wysyłania formularza */}
-        <button type='submit'>Dodaj notatkę</button>
+        <button className="notes-add" type="submit">Dodaj notatkę</button>
       </form>
 
-      <ul>
-        {allNotes.length === 0 && <li>Brak notatek</li>}
-        {allNotes.map((note, index) => (
-          <li key={index}>{note}</li>
+      {/*  Lista notatek */}
+      <ul className="notes-list">
+        {allNotes.length === 0 && (
+          <li className="notes-empty">Brak notatek — dodaj pierwszą! ✍️</li>
+        )}
+
+        {allNotes.map((note) => (
+          <li key={note.id} className="notes-item">
+            <span className="notes-text">{note.text}</span>
+            <button
+              className="notes-remove"
+              onClick={() => handleRemoveNote(note.id)}
+            >
+              Usuń
+            </button>
+          </li>
         ))}
       </ul>
-      </div>
+    </div>
   );
 }
