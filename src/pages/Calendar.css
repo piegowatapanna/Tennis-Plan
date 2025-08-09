@@ -1,4 +1,3 @@
-/* ETAP 4 – styl zgodny z Notes.css (te same przyciski, ramki, typografia) */
 .calendar-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -25,7 +24,13 @@
 }
 
 .back-button:hover { 
-text-decoration: underline; 
+  text-decoration: underline; 
+}
+
+/* Wrapper dla przewijania na małych ekranach */
+.cal-wrapper {
+  overflow-x: auto;
+  padding-bottom: 6px;
 }
 
 /* Siatka */
@@ -34,6 +39,7 @@ text-decoration: underline;
   grid-template-columns: repeat(7, 1fr);
   gap: 6px;
   margin-bottom: 1rem;
+  min-width: 500px; /* aby na telefonach pojawił się scroll */
 }
 
 /* Karta dnia – jak notes-item */
@@ -83,6 +89,7 @@ text-decoration: underline;
   display: flex;
   gap: 8px;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 .calendar-form input, .calendar-form select {
   flex: 1;
@@ -100,17 +107,19 @@ text-decoration: underline;
   cursor: pointer;
 }
 .calendar-form button:hover { 
-background: #218838; 
+  background: #218838; 
 }
 
 /* Lista wydarzeń – jak notes-list */
 .calendar-events-list { 
-    list-style: none; 
-    padding: 0; 
-    margin: 0; }
+  list-style: none; 
+  padding: 0; 
+  margin: 0; 
+}
 
 .calendar-events-list li {
-  display: flex; align-items: center; 
+  display: flex; 
+  align-items: center; 
   justify-content: space-between;
   gap: 10px;
   padding: 0.6rem 0.7rem;
@@ -120,8 +129,9 @@ background: #218838;
   margin-bottom: 6px;
 }
 .calendar-events-list li b { 
-    min-width: 105px; 
-    font-weight: 700; }
+  min-width: 105px; 
+  font-weight: 700; 
+}
 
 .calendar-events-list button {
   background: #dc3545; 
@@ -131,4 +141,19 @@ background: #218838;
   border-radius: 6px; 
   cursor: pointer;
 }
-.calendar-events-list button:hover { background: #c82333; }
+.calendar-events-list button:hover { 
+  background: #c82333; 
+}
+
+/* RWD */
+@media (max-width: 600px) {
+  .calendar-container {
+    padding: 1rem;
+  }
+  .calendar-title {
+    font-size: 1.5rem;
+  }
+  .calendar-day {
+    height: 70px;
+  }
+}
