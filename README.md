@@ -1,41 +1,37 @@
-# 🎾 Tennis Plan
-
-Aplikacja **Tennis Plan** to prosty planer tenisowy stworzony w React, pozwalający użytkownikowi zapisywać mecze, śledzić statystyki i notować błędy. Aplikacja skierowana jest do tenisistów amatorów, którzy chcą poprawić swoją grę dzięki analizie danych.
-
-## 🚀 Funkcje
-- Zapisywanie rozegranych meczów
-- Dodawanie notatek i błędów
-- Przegląd statystyk
-- Prosty interfejs i responsywny design
-
-## 🛠 Technologie
-- [React 18+](https://reactjs.org/)
-- [Vite](https://vitejs.dev/)
-- CSS (oddzielne pliki per komponent)
-- Routing: `react-router-dom`
-- LocalStorage (w planach)
+ Zrealizowane:
+Strona główna z nawigacją
+Widok kalendarza z zapisem i usuwaniem wydarzeń
+Obsługa API świąt państwowych
+Notatki (CRUD w localStorage)
+Sekcja statystyk
+Responsywny layout
+📅 Do ewentualnego rozwoju:
+Filtrowanie wydarzeń po typie (mecz/trening/inne)
+Eksport danych do pliku
+Możliwość przełączania miesięcy w kalendarzu
 
 ## 📁 Struktura folderów
 
-```
 src/
-├── assets/          # Zasoby: logo, obrazy
-├── components/      # Komponenty wspólne (Navbar, Layout)
-│   ├── Layout.jsx
-│   ├── Layout.css
-│   ├── Navbar.jsx
-│   └── Navbar.css
-├── pages/           # Widoki aplikacji
-│   ├── Home.jsx
-│   ├── Calendar.jsx
-│   ├── Login.jsx
-│   ├── Notes.jsx
-│   ├── Stats.jsx
-│   ├── *.css         # Styl każdego widoku
-├── App.jsx          # Główna struktura i routing
-├── main.jsx         # Punkt wejściowy aplikacji
-├── index.css        # Style globalne (reset, body)
-```
+├── components/
+│ ├── Layout.jsx
+│ ├── Navbar.jsx
+│ ├── Footer.jsx
+│
+├── pages/
+│ ├── Home.jsx
+│ ├── Calendar.jsx
+│ ├── Notes.jsx
+│ ├── Stats.jsx
+│ ├── NotFound.jsx
+│
+├── assets/ # grafiki, logo, ikony
+│
+├── index.css # style globalne
+│
+├── main.jsx # punkt startowy aplikacji
+│
+└── App.jsx # konfiguracja tras
 
 ## ▶️ Jak uruchomić projekt
 
@@ -60,13 +56,18 @@ npm run dev
 http://localhost:5173
 ```
 
-## 📌 Status projektu
-
-✅ Trwają prace nad MVP  
-🧠 Komponenty podzielone, trwają prace nad routingiem i przechowywaniem danych  
-🎨 Stylowanie podzielone na osobne pliki `.css`
-
----
+📌 Status projektu
+✅ Zrealizowane:
+Strona główna z nawigacją
+Widok kalendarza z zapisem i usuwaniem wydarzeń
+Obsługa API świąt państwowych
+Notatki (CRUD w localStorage)
+Sekcja statystyk
+Responsywny layout
+📅 Do ewentualnego rozwoju:
+Filtrowanie wydarzeń po typie (mecz/trening/inne)
+Eksport danych do pliku
+Możliwość przełączania miesięcy w kalendarzu
 
 ## ✍️ Autor
 
